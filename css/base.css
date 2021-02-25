@@ -1,0 +1,47 @@
+/* remove validation icons */
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    background-image: none !important;
+    
+    padding-right: 0.75em;
+}
+
+.form-control.is-valid, .was-validated .form-control:valid {
+    background-image: none !important;
+   
+    padding-right: 0.75em;
+}
+
+.fullscreenerror
+{
+ position:fixed;
+    z-index: 99999;
+
+left:0px;
+right:0px;
+    top: 0px;
+	bottom:0px;
+	 width:200px;
+	 height:70px;
+	margin:auto;
+	background-image: url("../images/trans_5x5.png");
+	 background-repeat: repeat;
+	 text-align: center;
+	border: 1px solid #9C9C9C;  
+}
+
+#tblAttendees tr p
+{
+	margin-bottom: 0px;
+    margin-top: 2px;
+}
+.capitalize { text-transform: capitalize; }
+
+th.colStatus
+{
+	width: 100px;
+}
+
+th.colSentAt
+{
+	width: 170px;
+}
