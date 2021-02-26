@@ -3,7 +3,7 @@ require_once('./inc/connstring.php');
 require_once('./inc/database.php');
 require_once('./inc/functions.php');
 require_once('./inc/ldap.php');
-
+//test
 $MYSQL = new Database();
 $MYSQL->MyConnect($MYserverName, $MYconnectionInfo);
 
