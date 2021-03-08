@@ -40,7 +40,7 @@ function getSMScredit()
     $('#SMSCredit').html("Available credits: <i class=\"fas fa-cog fa-spin\"></i>");
     
     var settings = {
-        "url": "http://webstaging2/smsportal/ajax/SMS.php?func=getBalance",
+        "url": "ajax/SMS.php?func=getBalance",
         "method": "POST",
         "timeout": 0,
       };
