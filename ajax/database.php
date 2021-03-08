@@ -131,7 +131,7 @@ if (isAuthorised($ladp,$GroupsLdap,$user) === true)
             if(isset($AttendeeID))
             {
                 $items = array("sss","$AttendeeName","$MobileNumber","$AttendeeID");
-                $sql = "UPDATE smsp_patient SET Name = ?,MobileNumber = ? WHERE patientID = ?;";
+                $sql = "UPDATE smsp_patient SET Name = ?,MobileNumber = ?, lastupdate = NOW() WHERE patientID = ?;";
                 $result = $MYSQL->Query($sql,$items);
                 if ($MYSQL->sqlerr<>0)
                 {
@@ -155,7 +155,7 @@ if (isAuthorised($ladp,$GroupsLdap,$user) === true)
             else
             {
                 $items = array("ss","$AttendeeName","$MobileNumber");
-                $sql = "INSERT INTO smsp_patient (Name,MobileNumber) VALUES (?,?)";
+                $sql = "INSERT INTO smsp_patient (Name,MobileNumber,lastupdate) VALUES (?,?,NOW())";
                 $result = $MYSQL->Query($sql,$items);
                 $AttendeeID = $MYSQL->insert_id;
                 //1062

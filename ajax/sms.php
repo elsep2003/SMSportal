@@ -227,6 +227,29 @@ if (isAuthorised($ladp,$GroupsLdap,$user) === true)
 
             }
         break; // end checkSMSstate
+        
+        // Start getBalance
+        case "getBalance": 
+            $credits = 0;
+            $service = new \Esendex\DispatchService($EsendexAuth);
+            try
+            {
+                $credits = $service->getCredits();
+            } catch (Exception $errcode) {
+                $JSONarray['status'] = false;
+                $JSONarray['etype'] = "API";
+                {
+                    $JSONarray['mgs']=$errcode->getMessage();
+                }
+            }
+            if (!isset($errcode))
+            {
+                
+                $JSONarray['credits'] = $credits;
+                $JSONarray['status'] = true;
+            }
+            
+        break; // end getBalance
 
         default: // catch all
             

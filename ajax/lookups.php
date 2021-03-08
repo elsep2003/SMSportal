@@ -22,7 +22,7 @@ if (isAuthorised($ladp,$GroupsLdap,$user) === true)
 	{
         $name = htmlspecialchars($_REQUEST['name']);
         $items = array("s","$name%");
-            $result = $MYSQL->Query("SELECT patientID,Name,MobileNumber FROM smsp_patient where name like ?;",$items);
+            $result = $MYSQL->Query("SELECT patientID,Name,MobileNumber FROM smsp_patient where active = 1 and name like ?;",$items);
         
             if ($result->num_rows>0)
             {

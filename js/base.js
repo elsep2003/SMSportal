@@ -28,6 +28,63 @@ function parseDate(str) {
 
             return (m) ? new Date(m[3], m[2]-1, m[1],m[4],m[5]) : null;
         }
+
+
+/**
+ * @function getSMScredit
+ * Check SMS Credit.
+ * @return int Credit
+ */        
+function getSMScredit()
+{
+    $('#SMSCredit').html("Available credits: <i class=\"fas fa-cog fa-spin\"></i>");
+    
+    var settings = {
+        "url": "http://webstaging2/smsportal/ajax/SMS.php?func=getBalance",
+        "method": "POST",
+        "timeout": 0,
+      };
+      
+      $.ajax(settings).done(function (statusret) {
+        if(statusret.status==true)
+        {
+           var credit =  statusret.credits;
+           $('#SMSCredit').fadeOut(function() {
+           $('#SMSCredit').text("Available credits: " + credit).fadeIn();
+        });
+
+
+           $('#SMSCredit').removeClass("badge-light badge-warning badge-danger");
+           if (credit > 100)
+           {
+                $('#SMSCredit').addClass("badge-light");
+           }
+           else if (credit > 50)
+           {
+                $('#SMSCredit').addClass("badge-warning");
+           }
+           else
+           {
+                $('#SMSCredit').addClass("badge-danger");
+           }
+
+        }
+        else
+        {
+            $('#SMSCredit').text("Available credits: N/A" );
+        }
+
+      });
+
+  
+
+      
+      
+      
+      
+    
+}        
+
 /**
  * @function updateSMS
  * Check status of send SMS message and update table.
@@ -241,6 +298,7 @@ function refreshdata()
             notenmodal.find('.modal-body').html('Please reload the page </hr><p class="mb-0">Error: '+ JsonList.mgs +'</p>');
             notenmodal.modal('show');
         }
+        
     })
     .fail(function(jqXHR, textStatus,errorThrown) {
         var notenmodal =  $('#notenmod');
@@ -276,7 +334,7 @@ $(document).ready(function(){
             $('#AddAttendeeName').val("");
             $('#appointmentID').val("");
             $('#appointmentnosave').addClass("d-none");
-       
+
         
     })
 
@@ -302,6 +360,8 @@ $(document).ready(function(){
         }
         else
         {
+        
+            
             tblAttendees = JSON.parse(localStorage.getItem("tblAttendees"));
             var tblrow = tblAttendees[recipient];
             console.log(tblrow.AppointmentTime);
@@ -340,6 +400,7 @@ $(document).ready(function(){
 
     $('#sendSMSmodal').on('show.bs.modal', function (e) {
 
+        getSMScredit();
         var buttonClicked = $(e.relatedTarget) // Button that triggered the modal
         var recipient = buttonClicked.data('addattendeeid') // Extract info from data-* attributes
 
@@ -414,6 +475,19 @@ $(document).ready(function(){
             };
         },
         events: {
+            searchPre: function (newValue, origJQElement){
+                
+                var tempAddAttendeeID = $("#AddAttendeeID").val();
+
+                if (tempAddAttendeeID>0)
+                {
+                    return false;
+                }
+                else
+                {
+                return newValue;
+                }
+            },
             search: function (qry, callback) {
                 // let's do a custom ajax call
                 $.ajax(
@@ -446,11 +520,11 @@ $(document).ready(function(){
        }
     });
 
-	$('#AddAttendeeName').on('autocomplete.freevalue', function (evt, value) {
+/*	$('#AddAttendeeName').on('autocomplete.freevalue', function (evt, value) {
 	    console.log("There");
         $("#AddAttendeeMobileNumber").val("");
         $("#AddAttendeeID").val("");
-	});    
+	});    */
 
     // Enable tool tips
     $(function () {
@@ -642,8 +716,9 @@ $(document).ready(function(){
 
         }
     });
+    
     refreshdata();
-
+    
     setInterval(function(){ refreshdata(); }, 300000);
 
     

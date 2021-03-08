@@ -96,7 +96,7 @@ if(isset($_REQUEST['location']))
                     <label for="AddAttendeeLocation" class="col-sm-3 col-form-label">Location</label>
                     <div class="col-sm-9">
                         <?php 
-                            autoselect($MYSQL,"SELECT locationID,LocationTitle FROM smsportal.smsp_location where active = '1'","AddAttendeeLocation","locationID","LocationTitle","Choose...",$locationID," required"); 
+                            autoselect($MYSQL,"SELECT locationID,LocationTitle FROM smsp_location where active = '1'","AddAttendeeLocation","locationID","LocationTitle","Choose...",$locationID," required"); 
                         ?>
                         <div class="invalid-feedback">
                         Please select a Location
@@ -132,7 +132,7 @@ if(isset($_REQUEST['location']))
                             <label for="Location">Location</label>
                             <form action="" method="GET">
                             <?php 
-                                    autoselect($MYSQL,"SELECT locationID,LocationTitle FROM smsportal.smsp_location where active = '1'","location","locationID","LocationTitle","Choose...",$locationID,"onchange='this.form.submit()'"); 
+                                    autoselect($MYSQL,"SELECT locationID,LocationTitle FROM smsp_location where active = '1'","location","locationID","LocationTitle","Choose...",$locationID,"onchange='this.form.submit()'"); 
                             ?>
                             </form>
                         </div>
@@ -169,6 +169,7 @@ if(isset($_REQUEST['location']))
             </button>
         </div>
         <div class="modal-body">
+        
             <form id="sendSMSmodalfrm" name="sendSMSmodalfrm">
             <div class="form-group">
                 <label for="recipient-number" class="col-form-label">Number:</label>
@@ -188,6 +189,7 @@ if(isset($_REQUEST['location']))
         </div>
         
         <div class="modal-footer">
+        <span id="SMSCredit" name="SMSCredit" class="badge badge-light">Available credits: <i class="fas fa-cog fa-spin"></i></span>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" id="BTNsendSMS" name="BTNsendSMS" class="btn btn-primary">Send message</button>
         </div>
